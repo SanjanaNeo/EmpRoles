@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "397967077082",
+    "project_id": "emproles-4a8d4",
+    "storage_bucket": "emproles-4a8d4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:397967077082:android:0d317e86a055785812ffe3",
+        "android_client_info": {
+          "package_name": "com.emproles"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "397967077082-57vpgoojduvutabf3qq6jp5c8opplnit.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.emproles",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "397967077082-o31nhr3amg1of3tmlkvjv431r2aj5qhq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBIX003-X4yef1xnmPO97pZQ5kOxO78sYc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "397967077082-o31nhr3amg1of3tmlkvjv431r2aj5qhq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

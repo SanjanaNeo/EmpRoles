@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">EmpRoles</string>
+
+
+    <string name="facebook_app_id">1393267974601065</string>
+    <string name="fb_login_protocol_scheme">fb1234</string>
+    <string name="facebook_client_token">8a4eb643a5b4eefe1ab1039e76862dc3</string>
+
+
 </resources>
