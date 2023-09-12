@@ -62,8 +62,12 @@ const LoginScreen = () => {
         {userInfo == null ? (
           <Text
             style={{
-              padding: 20,
+              padding: 10,
+              width:190,
+              height:40,
+              justifyContent:'center',
               borderWidth: 1,
+              borderRadius:5,
               marginTop: 230,
               backgroundColor:'blue',
               color:'white'

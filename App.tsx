@@ -8,7 +8,9 @@ const App = () => {
     <View>
       {/* <Text>App</Text> */}
       <LoginScreen />
+      <View style={{marginTop:35,marginLeft:82}}>
       <FbLogin />
+      </View>
     </View>
   );
 };
