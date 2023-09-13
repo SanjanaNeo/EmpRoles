@@ -11,6 +11,8 @@ import {
   GoogleSignin,
   statusCodes,
 } from '@react-native-google-signin/google-signin';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import FbLogin from './FbLogin';
 
 const LoginScreen = () => {
   const [userInfo, setUserInfo] = useState(null);
@@ -60,31 +62,37 @@ const LoginScreen = () => {
           />
         )}
         {userInfo == null ? (
-          <Text
-            style={{
-              padding: 10,
-              width:190,
-              height:40,
-              justifyContent:'center',
-              borderWidth: 1,
-              borderRadius:5,
-              marginTop: 230,
-              backgroundColor:'blue',
-              color:'white'
-            }}
-            onPress={() => {
-              signIn();
-            }}>
-            Sign In using Google
-          </Text>
+          <View>
+            <Icon name="google" size={24} color="white"/>
+            <Text
+              style={{
+                padding: 10,
+                width: 190,
+                height: 40,
+                justifyContent: 'center',
+                borderWidth: 1,
+                borderRadius: 5,
+                marginTop: 230,
+                backgroundColor: '#4285F4',
+                color: 'white',
+              }}
+              onPress={() => {
+                signIn();
+              }}>
+              Sign In using Google
+            </Text>
+          </View>
         ) : (
-          <Text style={{padding: 20, borderWidth: 1, marginTop: 30}} onPress={()=>{
-            signOut()
-          }}>
+          <Text
+            style={{padding: 20, borderWidth: 1, marginTop: 30}}
+            onPress={() => {
+              signOut();
+            }}>
             Sign Out
           </Text>
         )}
       </View>
+      <FbLogin/>
     </SafeAreaView>
   );
 };
