@@ -13,13 +13,35 @@ import {
 } from '@react-native-google-signin/google-signin';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {LoginButton, AccessToken} from 'react-native-fbsdk-next';
-import firestore from '@react-native-firebase/firestore'; // Import Firebase Firestore
+import firestore from '@react-native-firebase/firestore';
+import auth from '@react-native-firebase/auth';
 import {useNavigation} from '@react-navigation/native';
 
 const UnifiedLogin = () => {
   const [userInfo, setUserInfo] = useState(null);
-  const [userRole, setUserRole] = useState(null); // To store the user's role
+  const [userRole, setUserRole] = useState(null);
+  const [userId, setUserId] = useState(null);
   const navigation = useNavigation();
+
+  // useEffect(() => {
+  //   // Listen for changes in the authentication state
+  //   const unsubscribe = auth().onAuthStateChanged(user => {
+  //     console.log("User",user);
+  //     if (user) {
+  //       // User is signed in, you can get their UID
+  //       const userUid = user.uid;
+  //       setUserId(userUid);
+  //       console.log("user id 2",userUid);
+  //     } else {
+  //       // User is signed out
+  //       setUserId(null);
+  //       console.log("hello");
+  //     }
+  //   });
+
+  //   // Clean up the listener when the component unmounts
+  //   return () => unsubscribe();
+  // }, []);
 
   useEffect(() => {
     GoogleSignin.configure({
@@ -28,19 +50,27 @@ const UnifiedLogin = () => {
     });
   }, []);
 
-  // Function to fetch user's role from Firestore
-  const fetchUserRole = async userId => {
+  // Function to fetch user's role from Firestore based on email
+  const fetchUserRole = async email => {
     try {
-      const userDoc = await firestore().collection('users').doc(userId).get();
-      if (userDoc.exists) {
-        const userData = userDoc.data();
-        console.log('userdata', userData);
+      const userQuery = await firestore()
+        .collection('users')
+        .where('email', '==', email)
+        .get();
+
+      if (!userQuery.empty) {
+        const userData = userQuery.docs[0].data();
         setUserRole(userData.role);
+
+        // Check the user's role and navigate if needed
         if (userData.role === 'admin') {
-          navigation.navigate('AdminDashboard'); // Navigate to the admin dashboard
+          navigation.navigate('AdminDashboard');
+        }
+        if (userData.role === 'manager') {
+          navigation.navigate('ManagerDashboard', {userId});
         }
       } else {
-        console.log('User document not found.');
+        console.log('User not found.');
       }
     } catch (error) {
       console.error('Error fetching user data:', error);
@@ -50,11 +80,16 @@ const UnifiedLogin = () => {
   const signInWithGoogle = async () => {
     try {
       await GoogleSignin.hasPlayServices();
-      const usrInfo = await GoogleSignin.signIn();
-      setUserInfo(usrInfo);
-      console.log('user info', usrInfo.user.id);
+      const userInfo = await GoogleSignin.signIn();
+      setUserInfo(userInfo);
+      setUserId(userInfo?.user?.id);
+      // console.log("mydfvds",userInfo?.user?.id);
+      // console.log("infooo",userInfo);
+
+      console.log('Userrrrrrr id', userId);
+
       // Fetch user's role after successful Google login
-      fetchUserRole(usrInfo.user.id);
+      fetchUserRole(userInfo.user.email);
     } catch (error) {
       // Handle errors as before
     }
@@ -69,7 +104,7 @@ const UnifiedLogin = () => {
     try {
       await GoogleSignin.signOut();
       setUserInfo(null);
-      setUserRole(null); // Reset user's role on sign-out
+      setUserRole(null);
     } catch (error) {
       console.error(error);
     }
@@ -107,8 +142,6 @@ const UnifiedLogin = () => {
                 } else {
                   AccessToken.getCurrentAccessToken().then(data => {
                     console.log(data.accessToken.toString());
-                    // Implement your logic for Facebook login success here
-                    // You can set user information in your app's state
                   });
                 }
               }}
@@ -127,8 +160,6 @@ const UnifiedLogin = () => {
     </SafeAreaView>
   );
 };
-
-export default UnifiedLogin;
 
 const styles = StyleSheet.create({
   container: {
@@ -191,3 +222,5 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
 });
+
+export default UnifiedLogin;

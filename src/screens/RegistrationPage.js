@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
-import {View, Text, StyleSheet, SafeAreaView} from 'react-native';
-import {Button, TextInput, RadioButton, HelperText} from 'react-native-paper';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, SafeAreaView } from 'react-native';
+import { Button, TextInput, RadioButton, HelperText } from 'react-native-paper';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 
@@ -26,6 +26,7 @@ function RegistrationPage() {
       await firestore().collection('users').doc(userId).set({
         email,
         role, // Assign the chosen role
+        userId, // Store the UID as userId
       });
 
       setSuccessMessage('Registration successful!');
@@ -44,19 +45,19 @@ function RegistrationPage() {
         <TextInput
           label="Email"
           value={email}
-          onChangeText={text => setEmail(text)}
+          onChangeText={(text) => setEmail(text)}
           mode="outlined"
           style={styles.input}
         />
         <TextInput
           label="Password"
           value={password}
-          onChangeText={text => setPassword(text)}
+          onChangeText={(text) => setPassword(text)}
           secureTextEntry
           mode="outlined"
           style={styles.input}
         />
-        <RadioButton.Group onValueChange={value => setRole(value)} value={role}>
+        <RadioButton.Group onValueChange={(value) => setRole(value)} value={role}>
           <Text style={styles.roleText}>Choose Role:</Text>
           <View style={styles.roleButton}>
             <RadioButton value="employee" />
@@ -74,7 +75,8 @@ function RegistrationPage() {
         <Button
           mode="contained"
           onPress={registerUser}
-          style={styles.registerButton}>
+          style={styles.registerButton}
+        >
           Register
         </Button>
         {successMessage ? (

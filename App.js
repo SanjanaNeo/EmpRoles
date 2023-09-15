@@ -24,6 +24,8 @@ import AdminDashboard from './src/screens/AdminDashboard';
 import UserManagement from './src/screens/UserManagement';
 import LoginScreen from './src/screens/LoginScreen';
 import RegistrationPage from './src/screens/RegistrationPage';
+import ManagerDashboard from './src/screens/ManagerDashboard';
+import PromoteEmployeeToManager from './src/screens/PromoteEmployeeToManager';
 
 const Stack = createStackNavigator();
 
@@ -35,7 +37,11 @@ function App() {
         <Stack.Screen name="AdminDashboard" component={AdminDashboard} />
         <Stack.Screen name="UserManagement" component={UserManagement} />
         <Stack.Screen name="RegistrationPage" component={RegistrationPage} />
-
+        <Stack.Screen name="ManagerDashboard" component={ManagerDashboard} />
+        <Stack.Screen
+          name="PromoteEmployeeToManager"
+          component={PromoteEmployeeToManager}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
